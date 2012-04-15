@@ -1,0 +1,10 @@
+rcirc-activities
+
+Clean and minimal activity tracker, ready to be modified/extended.
+Does a bit more than rcirc's built-in activity tracking, and won't
+need delving into rcirc to modify/extend, since it's based on hooks.
+
+The default front-end depends on ido!
+Bind `rcirc-activities/switch-to-buffer' to a key of choice.
+Implement an alternative front-end at will.
+Just use the `rcirc-activities/activities' alist.
