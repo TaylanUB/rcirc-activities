@@ -8,3 +8,8 @@ The default front-end depends on ido!
 Bind `rcirc-activities/switch-to-buffer' to a key of choice.
 Implement an alternative front-end at will.
 Just use the `rcirc-activities/activities' alist.
+
+
+2012-04-19
+I'm moving to circe. This project was short-lived.
+Sadly there appear to be bugs, I won't attempt to find them.
