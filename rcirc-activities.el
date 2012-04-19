@@ -10,7 +10,7 @@ activity indicators; `activity', `talk', `mention'")
   "Add an activity indicator to the set of activities for the given or current buffer."
   (let* ((b (or buffer (current-buffer)))
          (entry (assoc b rcirc-activities/activities)))
-    (when (not entry)
+    (when (not entry) ;; Doesn't hurt to make sure
       (setq entry (rcirc-activities/add-buffer b)))
     (let ((activities (cdr entry)))
       (unless (memq activity activities)
@@ -36,7 +36,8 @@ activity indicators; `activity', `talk', `mention'")
          (entry (cons b nil)))
     (with-current-buffer b
       (add-hook 'window-configuration-change-hook 'rcirc-activities/reset-if-buffer-in-window nil t))
-    (add-to-list 'rcirc-activities/activities entry)
+    (unless (assoc b rcirc-activities/activities)
+      (add-to-list 'rcirc-activities/activities entry))
     entry))
 
 (defun rcirc-activities/delete-buffer (&optional buffer)
@@ -52,9 +53,9 @@ activity indicators; `activity', `talk', `mention'")
       (when (search (rcirc-nick process) text)
         (rcirc-activities/add-activity 'mention)))))
 
+(add-hook 'rcirc-mode-hook 'rcirc-activities/add-buffer)
 (add-hook 'rcirc-print-hooks 'rcirc-activities/print-hook-function)
 (add-hook 'kill-buffer-hook 'rcirc-activities/delete-buffer)
-(add-hook 'change-major-mode-hook 'rcirc-activities/delete-buffer)
 
 
 ;; Frontend
